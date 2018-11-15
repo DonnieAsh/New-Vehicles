@@ -1,0 +1,254 @@
+// New Vehicles
+
+
+// Car Interface
+public interface Car {
+    void drive ();
+}
+
+//subclasses for Car
+public class Focus implements Car{
+    
+    @Override
+    public void drive() {
+        System.out.println("Driving a Focus...");
+    }
+}
+
+public class Mustang implements Car {
+    
+    @Override
+    public void drive() {
+        System.out.println("Driving a Mustang...");
+    }
+}
+
+public class Corolla implements Car {
+    
+    @Override
+    public void drive() {
+        System.out.println("Driving a Corolla...");
+    }
+}
+
+public class Prius implements Car {
+    
+    @Override
+    public void drive() {
+        System.out.println("Driving a Prius...");
+    }
+}
+
+// Truck Interface
+public interface Trucks {
+    void drive ();
+}
+
+//subclasses for Truck
+public class F150 implements Truck{
+    
+    @Override
+    public void drive() {
+        System.out.println("Driving an F150...");
+    }
+}
+
+public class Tacoma implements Truck{
+    
+    @Override
+    public void drive() {
+        System.out.println("Driving a Tacoma...");
+    }
+}
+
+// SUV Interface
+public interface SUV {
+    void drive ();
+}
+
+//subclasses for SUV
+public class Acadia implements SUV{
+    
+    @Override
+    public void drive() {
+        System.out.println("Driving a 2018 Acadia...");
+    }
+}
+
+public class SantaFe implements SUV{
+    
+    @Override
+    public void drive() {
+        System.out.println("Driving a 2017 SantaFe...");
+    }
+}
+
+// CarFactory Interface
+public interface CarFactory {
+    Car createCar(String carType);
+}
+
+
+// subclasses for CarFactory
+public class FordCarFactory implements CarFactory{
+    
+    @Override
+    public Car createCar(String carType) {
+        
+        if("Focus".equalsIgnoreCase(carType)) {
+            return new Focus();
+        }  
+        if("Mustang".equalsIgnoreCase(carType)) {
+            return new Mustang();
+        }
+        return null;
+    }
+}
+
+public class ToyotaCarFactory implements CarFactory {
+    
+    @Override
+    public Car createCar(String cartype) {
+        
+        if("Corolla".equalsIgnoreCase(cartype)) {
+            return new Corolla();
+        }  
+        if("Prius".equalsIgnoreCase(cartype)) {
+            return new Prius();
+        }
+        return null;
+    }
+
+// TruckFactory Interface
+public interface TruckFactory {
+    Truck createTruck(String truckType);
+}
+
+// subclasses for TruckFactory
+public class FordTruckFactory implements TruckFactory{
+    
+    @Override
+    public Truck createTruck(String truckType) {
+        
+        if("f150".equalsIgnoreCase(truckType)) {
+            return new F150();
+        }  
+        return null;
+    }
+}
+
+public class ToyotaTruckFactory implements TruckFactory {
+    
+    @Override
+    public Truck createTruck(String trucktype) {
+        
+        if("tacoma".equalsIgnoreCase(trucktype)) {
+            return new Tacoma();
+        }  
+        return null;
+    }
+	
+// SUVFactory Interface
+public interface SUVFactory {
+    SUV createSUV(String SUVType);
+}
+
+// subclasses for SUVFactory
+public class KiaSUVFactory implements SUVFactory{
+    
+    @Override
+    public SUV createSUV(String SUVType) {
+        
+        if("santafe".equalsIgnoreCase(SUVType)) {
+            return new SantaFe();
+        }  
+        return null;
+    }
+}
+
+public class HyundaiSUVFactory implements SUVFactory {
+    
+    @Override
+    public SUV createSUV(String SUVtype) {
+        
+        if("acadia".equalsIgnoreCase(SUVtype)) {
+            return new Acadia();
+        }  
+        return null;
+    }
+}
+//Creates Factories
+public class FactoryProducer {
+    
+    public static CarFactory getCarFactory(String factoryType) {
+        
+        if("toyota".equalsIgnoreCase(factoryType)) {
+            return new ToyotaCarFactory();
+        }  
+        if("ford".equalsIgnoreCase(factoryType)) {
+            return new FordCarFactory();
+        }
+        return null;
+    }
+	
+	public static TruckFactory getTruckFactory(String factoryType) {
+        
+        if("toyota".equalsIgnoreCase(factoryType)) {
+            return new ToyotaTruckFactory();
+        }  
+        if("ford".equalsIgnoreCase(factoryType)) {
+            return new FordTruckFactory();
+        }
+        return null;
+    }
+	
+	public static SUVFactory getSUVFactory(String factoryType) {
+        
+        if("kia".equalsIgnoreCase(factoryType)) {
+            return new KiaSUVFactory();
+        }  
+        if("hyundai".equalsIgnoreCase(factoryType)) {
+            return new HyundaiSUVFactory();
+        }
+        return null;
+    }
+}
+
+
+// Tester
+public class TestDrive {
+    
+    public static void main(String[] args) {
+        
+        CarFactory FordCarFactory = FactoryProducer.getCarFactory("ford");       
+        Car Mustang = FordCarFactory.createCar("Mustang");
+        Mustang.drive();
+        
+        Car Focus = FordCarFactory.createCar("Focus");
+        Focus.drive();
+        
+        CarFactory ToyotaCarFactory = FactoryProducer.getCarFactory("toyota");
+        Car Corolla = ToyotaCarFactory.createCar("Corolla");
+        Corolla.drive();
+        
+        Car Prius = ToyotaCarFactory.createCar("Prius");
+        Prius.drive();
+		
+		TruckFactory FordTruckFactory = FactoryProducer.getTruckFactory("ford");
+        Truck f150 = FordTruckFactory.createTruck("F150");
+        f150.drive();
+		
+		TruckFactory ToyotaTruckFactory = FactoryProducer.getTruckFactory("toyota");
+        Truck Tacoma = ToyotaTruckFactory.createTruck("Tacoma");
+        Tacoma.drive();
+        
+        SUVFactory KiaSUVFactory = FactoryProducer.getSUVFactory("kia");
+        SUV SantaFe = KiaSUVFactory.createSUV("santafe");
+        SantaFe.drive();
+		
+		SUVFactory HyundaiSUVFactory = FactoryProducer.getSUVFactory("hyundai");
+        SUV Acadia = HyundaiSUVFactory.createSUV("acadia");
+        Acadia.drive();
+        
+    }
+}
