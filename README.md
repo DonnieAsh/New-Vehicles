@@ -24,8 +24,50 @@ From the class diagram in the screencast, there are several classes that partici
 - Client – this class uses the interfaces declared by AbsractProduct and AbstractFactory
 
 ## System Implementation
-Though one of the drawbacks of the abstract factory design pattern is the extra complexity and writing the code during the initial stages, the use of this pattern makes it conceivable to swap the concrete classes without changing the client code even at runtime. With this knowledge, the abstract factory design can be applied to the GetITGood scenario.
+Though one of the drawbacks of the abstract factory design pattern is the extra complexity and writing the code during the initial stages, the use of this pattern makes it conceivable to swap the concrete classes without changing the client code even at runtime. With this knowledge, the abstract factory design can be applied to the GetITGood scenario. Below is sample of the code used to execute the program:
+```
+package NewVehicles.Car.Truck.VehicleTest;
 
+/** 
+ *
+ * @author allst
+ */
+public class TestDrive {
+    
+    public static void main(String[] args) {
+        
+        CarFactory FordCarFactory = FactoryProducer.getCarFactory("ford");       
+        Car Mustang = FordCarFactory.createCar("Mustang");
+        Mustang.drive();
+        
+        Car Focus = FordCarFactory.createCar("Focus");
+        Focus.drive();
+        
+        CarFactory ToyotaCarFactory = FactoryProducer.getCarFactory("toyota");
+        Car Corolla = ToyotaCarFactory.createCar("Corolla");
+        Corolla.drive();
+        
+        Car Prius = ToyotaCarFactory.createCar("Prius");
+        Prius.drive();
+		
+	TruckFactory FordTruckFactory = FactoryProducer.getTruckFactory("ford");
+        Truck f150 = FordTruckFactory.createTruck("F150");
+        f150.drive();
+		
+	TruckFactory ToyotaTruckFactory = FactoryProducer.getTruckFactory("toyota");
+        Truck Tacoma = ToyotaTruckFactory.createTruck("Tacoma");
+        Tacoma.drive();
+        
+        SUVFactory KiaSUVFactory = FactoryProducer.getSUVFactory("kia");
+        SUV SantaFe = KiaSUVFactory.createSUV("santafe");
+        SantaFe.drive();
+		
+	SUVFactory HyundaiSUVFactory = FactoryProducer.getSUVFactory("hyundai");
+        SUV Acadia = HyundaiSUVFactory.createSUV("acadia");
+        Acadia.drive();
+    }
+}
+```
 ## Lessons Learned
 Implementing the abstract factory design method takes some practice and patience. Because more code is usually needed, it is not necessary to rush through the process. When I initially implemented the design and tested it, I frequently ran into an error reading *“Exception in thread “main” java.lang.NullPointerException"*. This error was caused by a misspelling or accidently swapping product names e.g. “santafe” in the place of “acadia” and vice-versa. Copying and pasting code is very convenient but any programmer must be sure that they are making the correct changes to the code to avoid confusion and frustration.
 
